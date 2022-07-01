@@ -1,10 +1,13 @@
 const { Router } = require("express")
 
-const authRoutes = Router();
+const authRouter = Router();
 
 authRoutes.post("/signup", (req, res) => {
-    res.send("post request")
+    res.send("post signup")
 })
 
+authRouter.post("/login", (req, res) => {
+    res.send("post login")
+})
 
-module.exports = authRoutes;
+module.exports = authRouter;
