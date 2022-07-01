@@ -1,0 +1,46 @@
+# Backend - Google Tasks App
+
+step 1. => we create server
+step 2. => we connect Database with server
+step 3. => we creates schema/models
+step 4. => create Routes
+           - in Signup routes we get data from client and save it in database
+           
+           - .save((err,success)=>{if{} else{}}) is also a carry callback function 
+               if we get error while storing data its told us, 
+               else we get conformation success 
+           
+           - and in login part we dont need to save data here we get data from client and 
+              check its with our user data using find and if there is data then we return 
+              token , id and name of user as a payload;
+              else part we return wrong credentials
+
+step 5. => Task Routes
+
+POST / user/:userID/tasks
+
+- 1st we make post request 
+      
+      step 1. => we get userId from params 
+      step 2. => and after that we make payload and 
+                 - in payload we add and spred task by client that we get req.body
+                 - and we add userId that we get by params
+                 - here why we made paylaod becouse if we add also useId in payload then
+                   we know which client add this data for its use for diffrent users
+      step 3. => we passes this payload in taskmodel 
+      step 4. => after that we save this using task.save((err,success)=>{if{},else{} })
+      step 5. => and in 
+                   - if condition we check if err then we send err message
+                   - else condition we send success obj that contain user data;
+
+- 2nd we make get request
+
+    step 1. => in get request we simply get 1st userId thruough params in url
+    step 2. => after we matches this userid with our task data. 
+               that userId is nothing but at the time we add this
+               when we add task in database
+    step 3. => after getting data we send it user
+    step 4. => why we matches this id becouse we have diffrent users in our App
+                and we take care about whoose use add which task using userid at we
+                match this and get this
+           
