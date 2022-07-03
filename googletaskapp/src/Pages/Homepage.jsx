@@ -2,6 +2,7 @@ import {
     Button,
     Flex,
     Heading,
+    Hide,
     Image,
     Stack,
     Text,
@@ -12,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Homepage() {
 
     const navigate = useNavigate();
+    let userid = localStorage.getItem("userid");
 
     return (
         <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
@@ -53,9 +55,9 @@ export default function Homepage() {
                             }}>
                             Create Tasks
                         </Button>
-                        <Button
+                        {!userid ? <Button
                             onClick={() => navigate("/signup")}
-                            rounded={'full'}>Create your account</Button>
+                            rounded={'full'}>Create your account</Button> : Hide}
                     </Stack>
                 </Stack>
             </Flex>

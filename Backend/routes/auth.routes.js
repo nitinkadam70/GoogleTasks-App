@@ -2,7 +2,6 @@ const { Router } = require("express")
 const UserModel = require("../models/User")
 
 const authRouter = Router();
-
 authRouter.post("/signup", async (req, res) => {
     console.log(req.body)
     const user = await new UserModel(req.body)
@@ -24,7 +23,7 @@ authRouter.post("/login", async (req, res) => {
             name,
             token: 54321
         }
-        res.send(payload)
+        res.send(payload);
     }
     res.send({ message: "Wrong credentials" })
 })

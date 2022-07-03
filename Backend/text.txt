@@ -8,7 +8,7 @@ step 4. => create Routes
            
            - .save((err,success)=>{if{} else{}}) is also a carry callback function 
                if we get error while storing data its told us, 
-               else we get conformation success 
+               else we get conformation success or we send token
            
            - and in login part we dont need to save data here we get data from client and 
               check its with our user data using find and if there is data then we return 
