@@ -2,10 +2,11 @@ import {
     Flex,
     Stack,
     Input,
-    Box,
     Button,
     useColorModeValue,
-    InputGroup,
+    Spinner,
+    Badge,
+    Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -19,22 +20,17 @@ export default function Task() {
     const postTask = useSelector((store) => store.postTask);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [title, setTitle] = useState("");
+    let userid = localStorage.getItem("userid");
 
     useEffect(() => {
         if (task?.length === 0) {
             dispatch(getTaskToken())
         }
-    }, [dispatch, task?.length])
-
-    const [title, setTitle] = useState("");
-
-    let userid = localStorage.getItem("userid");
-
-    useEffect(() => {
         if (!userid) {
             navigate("/login");
         }
-    }, [userid]);
+    }, [dispatch, task?.length, userid])
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -58,6 +54,7 @@ export default function Task() {
                 spacing={8}
                 align={'center'}
                 overflowY='scroll'
+                height={'2xl'}
 
             >
 
@@ -86,11 +83,23 @@ export default function Task() {
                             _focus={{ bg: 'blue.500' }}>
                             Add Task
                         </Button>
-                    </Stack>
-                </form>
-                <Box>
 
-                </Box>
+                    </Stack>
+
+                </form>
+
+                {loading ? <Spinner size='xl' />
+                    :
+                    task.map((eachTask) => (
+                        <Text fontSize='xl' fontWeight='bold'>
+                            {eachTask.title}
+                            <Badge ml='1' fontSize='0.8em' colorScheme='green'>
+                                New
+                            </Badge>
+                        </Text>
+                    ))
+                }
+
             </Stack>
         </Flex >
     );

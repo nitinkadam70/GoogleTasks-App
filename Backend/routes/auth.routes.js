@@ -1,4 +1,5 @@
-const { Router } = require("express")
+const { Router } = require("express");
+const { db } = require("../models/User");
 const UserModel = require("../models/User")
 
 const authRouter = Router();

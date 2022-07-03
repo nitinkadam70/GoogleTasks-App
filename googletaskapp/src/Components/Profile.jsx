@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Hide, VStack } from '@chakra-ui/react'
+import { Avatar, AvatarBadge, Button, Hide, Tag, TagLabel, VStack, WrapItem } from '@chakra-ui/react'
 import { ArrowBackIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -32,6 +32,18 @@ const Profile = () => {
                 rightIcon={<ExternalLinkIcon />} colorScheme='teal' variant='solid'>
                 Logout
             </Button>
+            <Tag size='lg' colorScheme='red' borderRadius='full'>
+                <Avatar
+                    size='xs'
+                    name={localStorage.getItem("username")}
+                    ml={-1}
+                    mr={2}
+                >
+                    <AvatarBadge boxSize='1.25em' bg='green.500' />
+                </Avatar>
+                <TagLabel>{localStorage.getItem("username")}</TagLabel>
+            </Tag>
+
         </VStack >
     )
 }

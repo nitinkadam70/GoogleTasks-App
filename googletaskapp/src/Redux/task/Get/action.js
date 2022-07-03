@@ -16,12 +16,13 @@ export const getTaskError = () => ({
     type: GET_TASK_ERROR
 })
 
-let userid = JSON.parse(localStorage.getItem("userid"))
+let userid = localStorage.getItem("userid")
+
 
 export const getTaskToken = () => (dispatch) => {
     dispatch(getTaskloading())
     fetch(`${process.env.REACT_APP_API_URL}/user/${userid}/task`)
         .then((res) => res.json())
-        .then((res) => console.log(res))
+        .then((res) => dispatch(getTaskSuccess(res)))
         .catch((err) => dispatch(getTaskError()))
 }
