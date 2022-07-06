@@ -25,4 +25,15 @@ taskRouter.post("/:userId/task", async (req, res) => {
     })
 })
 
+taskRouter.delete("/:userId/task/:id", async (req, res) => {
+    const id = req.params.id
+    try {
+        const task = await TaskModel.deleteOne({ "_id": id }, {})
+        res.status(201).send({ DeleteSuccess: "Deleted Sucessfully" })
+    }
+    catch {
+        res.status(500).send({ DeleteError: "Error while Deleting" })
+    }
+})
+
 module.exports = taskRouter;
