@@ -4,14 +4,13 @@ import {
     Input,
     Button,
     useColorModeValue,
-    Spinner,
-    Badge,
-    Text,
+    Box,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import TableComponents from '../Components/TableComponents';
 import { getTaskToken } from '../Redux/task/Get/action';
 import { postTaskAction } from '../Redux/task/post/action';
 
@@ -54,8 +53,6 @@ export default function Task() {
                 spacing={8}
                 align={'center'}
                 overflowY='scroll'
-                height={'2xl'}
-
             >
 
                 <form onSubmit={handleSubmit}>
@@ -87,19 +84,9 @@ export default function Task() {
                     </Stack>
 
                 </form>
-
-                {loading ? <Spinner size='xl' />
-                    :
-                    task.map((eachTask) => (
-                        <Text fontSize='xl' fontWeight='bold'>
-                            {eachTask.title}
-                            <Badge ml='1' fontSize='0.8em' colorScheme='green'>
-                                New
-                            </Badge>
-                        </Text>
-                    ))
-                }
-
+                <Box>
+                    <TableComponents key={"##"} data={task} loading={loading} />
+                </Box>
             </Stack>
         </Flex >
     );
