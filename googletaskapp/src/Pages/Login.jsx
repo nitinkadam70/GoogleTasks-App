@@ -45,7 +45,6 @@ export default function Login() {
         e.preventDefault();
         let payload = { username, password }
         payload = JSON.stringify(payload);
-        console.log(payload)
         dispatch(getLoginToken(payload))
     }
 

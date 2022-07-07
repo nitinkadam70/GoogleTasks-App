@@ -11,9 +11,14 @@ const app = express();
 
 
 //middlewares
+app.use(
+    cors({
+        origin: "*",
+        credentials:true
+    })
+);
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
-app.use(cors());
+app.use(express.urlencoded({ extended: true }))
 
 app.use("/auth", authRouter);
 app.use("/user", taskRouter);
