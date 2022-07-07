@@ -27,8 +27,8 @@ const Profile = () => {
         <VStack direction='row' p='1%' spacing={4} position='absolute'>
             <Button onClick={() => {
                 localStorage.clear()
-                window.location.reload()
                 navigate("/")
+                window.location.reload()
 
             }}
                 rightIcon={<ExternalLinkIcon />} colorScheme='teal' variant='solid'>
