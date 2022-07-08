@@ -28,12 +28,24 @@ taskRouter.post("/:userId/task", async (req, res) => {
 taskRouter.delete("/:userId/task/:id", async (req, res) => {
     const id = req.params.id
     try {
-        const task = await TaskModel.deleteOne({ "_id": id }, {})
+        const task = await TaskModel.deleteOne({ _id: id }, {})
         res.status(201).send({ message: "Deleted Sucessfully" })
     }
     catch {
         res.status(500).send({ message: "Error while Deleting" })
     }
+})
+
+taskRouter.patch("/:userId/task/:id", async (req, res) => {
+    const _id = req.params.id
+    const body = req.body;
+    console.log(body)
+
+    const task = await TaskModel.findOneAndUpdate({ _id }, req.body);
+    if (!task) {
+        res.status(404).send("No resorses found")
+    }
+    res.status(201).send(success)
 })
 
 module.exports = taskRouter;

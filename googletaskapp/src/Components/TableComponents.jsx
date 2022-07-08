@@ -41,6 +41,29 @@ const TableComponents = (props) => {
 
     }
 
+    const handleEdit = (id, st) => {
+        let payload = 
+        fetch(`${process.env.REACT_APP_API_URL}/user/${userid}/task/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                status: true
+            }),
+            headers: {
+                'Content-type': 'application/json'
+            },
+        })
+            .then((res) => {
+                dispatch(getTaskToken())
+                toast({
+                    title: 'Status Completed',
+                    status: 'success',
+                    duration: 9000,
+                    isClosable: true,
+                })
+            })
+            .catch((err) => console.log(err))
+    }
+
     return (
         <TableContainer  >
             <Table variant='striped' colorScheme='gray.800'>
@@ -67,7 +90,7 @@ const TableComponents = (props) => {
                         <Tr key={item._id}>
                             <Td>{"#"}</Td>
                             <Td>{item.title}</Td>
-                            <Td>{item.status ? "Completed" : "Incompleted"}</Td>
+                            <Td><Button onClick={() => handleEdit(item._id, item.status)}>{item.status ? "Completed" : "Incompleted"}</Button></Td>
                             <Td ><Button>Edit</Button></Td>
                             <Td ><Button onClick={() => handleDelete(item._id)}>Delete</Button></Td>
                         </Tr>
