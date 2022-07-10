@@ -11,6 +11,9 @@ import {
     Heading,
     Text,
     useColorModeValue,
+    useToast,
+    Alert,
+    AlertIcon,
 } from '@chakra-ui/react';
 import { Progress } from '@chakra-ui/react'
 import { useState, useEffect } from 'react'
@@ -23,6 +26,9 @@ export default function Login() {
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const toast = useToast()
+
+
     const { res, loading, error } = useSelector((store) => store.login)
 
     let userid = localStorage.getItem("userid");
@@ -32,9 +38,23 @@ export default function Login() {
             localStorage.setItem("userid", res._id);
             localStorage.setItem("username", res.name);
             navigate("/task")
+            toast({
+                title: 'you have logged in successfully',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+                position: "top"
+            })
+            window.location.reload()
         }
         else if (error) {
-            alert("Wrong Credentials")
+            toast({
+                title: 'wrong credentials',
+                status: 'error',
+                duration: 9000,
+                isClosable: true,
+                position: "top"
+            })
         }
         if (userid) {
             navigate("/task")

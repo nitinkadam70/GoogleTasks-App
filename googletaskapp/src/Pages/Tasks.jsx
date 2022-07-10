@@ -16,7 +16,6 @@ import { postTaskAction } from '../Redux/task/post/action';
 
 export default function Task() {
     const { loading, task, error } = useSelector((store) => store.task);
-    const postTask = useSelector((store) => store.postTask);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [title, setTitle] = useState("");
@@ -53,6 +52,7 @@ export default function Task() {
                 spacing={8}
                 align={'center'}
                 overflowY='scroll'
+                h={'2xl'}
             >
 
                 <form onSubmit={handleSubmit}>

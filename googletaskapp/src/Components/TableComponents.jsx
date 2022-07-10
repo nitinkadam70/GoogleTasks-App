@@ -1,4 +1,6 @@
 import React from 'react'
+import axios from 'axios'
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
     Table,
     Thead,
@@ -10,24 +12,23 @@ import {
     Button,
     Skeleton,
     useToast,
+    Stack,
 } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { getTaskToken } from '../Redux/task/Get/action'
+import { EditTask } from './EditTask'
 
 
 
 const TableComponents = (props) => {
     const toast = useToast()
-
     const userid = localStorage.getItem("userid")
 
     const dispatch = useDispatch()
 
     const handleDelete = (id) => {
-        fetch(`${process.env.REACT_APP_API_URL}/user/${userid}/task/${id}`, {
-            method: "DELETE"
-        })
-            .then((res) => {
+        axios.delete(`${process.env.REACT_APP_API_URL}/user/${userid}/task/${id}`)
+            .then(() => {
                 dispatch(getTaskToken())
                 toast({
                     title: 'Deleted Successfully',
@@ -35,34 +36,29 @@ const TableComponents = (props) => {
                     duration: 9000,
                     isClosable: true,
                 })
-
             })
-
-
     }
 
     const handleEdit = (id, st) => {
-        let payload = 
-        fetch(`${process.env.REACT_APP_API_URL}/user/${userid}/task/${id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({
-                status: true
-            }),
-            headers: {
-                'Content-type': 'application/json'
-            },
+        let payload = { status: st ? false : true }
+        axios(`${process.env.REACT_APP_API_URL}/user/${userid}/task/${id}`, {
+            method: "PATCH",
+            data: JSON.stringify(payload),
+            headers: { "Content-Type": "application/json" }
         })
             .then((res) => {
                 dispatch(getTaskToken())
                 toast({
-                    title: 'Status Completed',
+                    title: 'Status upadated',
                     status: 'success',
                     duration: 9000,
                     isClosable: true,
                 })
             })
-            .catch((err) => console.log(err))
+            .catch((error) => console.log("Something went wrong"));
+
     }
+
 
     return (
         <TableContainer  >
@@ -78,21 +74,23 @@ const TableComponents = (props) => {
                 </Thead>
 
                 <Tbody>
-                    {props.loading ? <Tr size={'max-content'}>
-                        <Td>
-                            <Skeleton>
-                                <div>contents wrapped</div>
-                                <div>won't be visible</div>
-                            </Skeleton></Td>
+                    {props.loading ? <Stack>
+                        <Skeleton height='20px' />
+                        <Skeleton height='20px' />
+                        <Skeleton height='20px' />
+                        <Skeleton height='20px' />
+                        <Skeleton height='20px' />
 
-                    </Tr> : props.data.map((item) => (
+                    </Stack> : props.data.map((item, index) => (
 
                         <Tr key={item._id}>
-                            <Td>{"#"}</Td>
+                            <Td>{index + 1}</Td>
                             <Td>{item.title}</Td>
-                            <Td><Button onClick={() => handleEdit(item._id, item.status)}>{item.status ? "Completed" : "Incompleted"}</Button></Td>
-                            <Td ><Button>Edit</Button></Td>
-                            <Td ><Button onClick={() => handleDelete(item._id)}>Delete</Button></Td>
+                            <Td><Button bg={item.status ? "whatsapp.100" : "red.100"} onClick={() => handleEdit(item._id, item.status)}>{item.status ? "Completed" : "Incompleted"}</Button></Td>
+                            <Td >
+                                <EditTask id={item._id} />
+                            </Td>
+                            <Td ><Button colorScheme='red' rightIcon={<DeleteIcon />} onClick={() => handleDelete(item._id)}>Delete</Button></Td>
                         </Tr>
 
                     ))}

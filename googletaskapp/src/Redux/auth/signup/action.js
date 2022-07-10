@@ -1,5 +1,4 @@
-// import 'dotenv/config' 
-
+import axios from "axios"
 //signup
 export const GET_SIGNUP_LOADING = "GET_SIGNUP_LOADING"
 export const GET_SIGNUP_SUCCESS = "GET_SIGNUP_SUCCESS"
@@ -19,16 +18,14 @@ const getSignupError = () => ({
 
 export const getSignupToken = (payload) => (dispatch) => {
     dispatch(getSignuploading())
-    fetch(`${process.env.REACT_APP_API_URL}/auth/signup`, {
-        headers: {
-            "Content-Type": "application/json"
-        },
+    axios({
+        url: `${process.env.REACT_APP_API_URL}/auth/signup`,
         method: "POST",
-        body: payload
-    })
-        .then((res) => res.json())
-        .then((res) => dispatch(getSignupSuccess(res.token)))
-        .catch((err) => dispatch(getSignupError()))
+        data: payload,
+        headers: { "Content-Type": "application/json" }
+    }).then((res) => {
+        dispatch(getSignupSuccess(res.data.token))
+    }).catch((err) => getSignupError())
 }
 
 

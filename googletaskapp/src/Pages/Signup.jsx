@@ -13,6 +13,7 @@ import {
     Text,
     useColorModeValue,
     Spinner,
+    useToast,
 } from '@chakra-ui/react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -30,11 +31,21 @@ export default function Signup() {
     const [showPassword, setShowPassword] = useState(false);
     const [userData, setUserData] = useState({});
 
+    const toast = useToast()
+
     let userid = localStorage.getItem("userid");
 
     useEffect(() => {
         if (token) {
             navigate("/login")
+            toast({
+                title: 'Thanks for signing up. Welcome to our community.',
+                status: 'success',
+                duration: 9000,
+                isClosable: true,
+                position: "top"
+
+            })
         }
         if (userid) {
             navigate("/task");

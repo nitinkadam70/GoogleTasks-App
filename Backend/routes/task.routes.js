@@ -37,15 +37,14 @@ taskRouter.delete("/:userId/task/:id", async (req, res) => {
 })
 
 taskRouter.patch("/:userId/task/:id", async (req, res) => {
-    const _id = req.params.id
-    const body = req.body;
-    console.log(body)
-
-    const task = await TaskModel.findOneAndUpdate({ _id }, req.body);
-    if (!task) {
-        res.status(404).send("No resorses found")
+    try {
+        const _id = req.params.id
+        const updateTask = await TaskModel.findByIdAndUpdate(_id, req.body);
+        res.send(updateTask)
     }
-    res.status(201).send(success)
+    catch (error) {
+        res.status(400).send(error)
+    }
 })
 
 module.exports = taskRouter;

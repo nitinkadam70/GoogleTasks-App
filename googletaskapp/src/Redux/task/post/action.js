@@ -1,5 +1,4 @@
-// import 'dotenv/config' 
-
+import axios from "axios"
 import { getTaskToken } from "../Get/action"
 
 //login
@@ -25,17 +24,15 @@ let userid = localStorage.getItem("userid")
 
 export const postTaskAction = (payload) => (dispatch) => {
     dispatch(postTaskloading())
-    fetch(`${process.env.REACT_APP_API_URL}/user/${userid}/task`, {
-        headers: {
-            "Content-Type": "application/json"
-        },
+    axios({
+        url: `${process.env.REACT_APP_API_URL}/user/${userid}/task`,
         method: "POST",
-        body: payload
-    })
-        .then((res) => res.json())
-        .then((res) => {
-            dispatch(postTaskSuccess(res))
-            dispatch(getTaskToken())
-        })
-        .catch((err) => dispatch(postTaskError(err)))
+        data: payload,
+        headers: { "Content-Type": "application/json" }
+
+
+    }).then((res) => {
+        dispatch(postTaskSuccess(res.data))
+        dispatch(getTaskToken())
+    }).catch((err) => dispatch(postTaskError(err)))
 }

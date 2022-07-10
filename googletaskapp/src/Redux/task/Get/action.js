@@ -1,3 +1,5 @@
+import axios from "axios"
+
 //login
 export const GET_TASK_LOADING = "GET_TASK_LOADING"
 export const GET_TASK_SUCCESS = "GET_TASK_SUCCESS"
@@ -21,8 +23,9 @@ let userid = localStorage.getItem("userid")
 
 export const getTaskToken = () => (dispatch) => {
     dispatch(getTaskloading())
-    fetch(`${process.env.REACT_APP_API_URL}/user/${userid}/task`)
-        .then((res) => res.json())
-        .then((res) => dispatch(getTaskSuccess(res)))
+    axios.get(`${process.env.REACT_APP_API_URL}/user/${userid}/task`)
+        .then((res) => {
+            dispatch(getTaskSuccess(res.data))
+        })
         .catch((err) => dispatch(getTaskError()))
 }
