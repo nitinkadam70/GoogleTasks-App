@@ -2,25 +2,14 @@ import React from 'react'
 import axios from 'axios'
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
 import {
-    Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
-    TableContainer,
     Button,
     Skeleton,
     useToast,
     Stack,
     Container,
-    ListItem,
-    OrderedList,
-    Heading,
-    Box,
-    Flex,
     Grid,
     GridItem,
+    Text,
 } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { getTaskToken } from '../Redux/task/Get/action'
@@ -77,20 +66,21 @@ const TableComponents = (props) => {
             </Stack> :
                 props.data.map((item, index) => (
                     <Grid
-
+                        key={item._id}
                         p='2%'
                         borderBottom="1px solid black"
-                        templateColumns="repeat(5, 1fr)"
+                        templateRows={['repeat(1, 1fr)', 'repeat(1, 1fr)', 'repeat(1, 1fr)']}
+                        templateColumns={['repeat(2, 1fr)', 'repeat(5, 1fr)', 'repeat(5, 1fr)']}
                         gap={6}
                         justifyContent={'center'}
                         alignItems={'center'} >
-                        <GridItem>{index + 1}</GridItem>
-                        <GridItem rowSpan={1} colSpan={3}>{item.title}</GridItem>
-                        <GridItem>
+                        <GridItem >{index + 1}</GridItem>
+                        <GridItem ><Text textOverflow='ellipsis' overflow='hidden' whiteSpace='nowrap' width='100px'>{item.title}</Text> </GridItem>
+                        <GridItem >
                             <Button bg={item.status ? "whatsapp.100" : "red.100"} onClick={() => handleEdit(item._id, item.status)}>{item.status ? "Completed" : "Incompleted"}</Button>
                         </GridItem>
-                        <GridItem> <EditTask id={item._id} /></GridItem>
-                        <GridItem>
+                        <GridItem > <EditTask id={item._id} /></GridItem>
+                        <GridItem >
                             <Button colorScheme='red' rightIcon={<DeleteIcon />} onClick={() => handleDelete(item._id)}>Delete</Button>
                         </GridItem>
                     </Grid>

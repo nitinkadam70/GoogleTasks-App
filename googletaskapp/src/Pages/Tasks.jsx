@@ -51,8 +51,7 @@ export default function Task() {
                 p={10}
                 spacing={8}
                 align={'center'}
-                overflowY='scroll'
-                h={'2xl'}
+                w={['xl','2xl','4xl']}
             >
 
                 <form onSubmit={handleSubmit}>
