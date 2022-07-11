@@ -13,6 +13,14 @@ import {
     Skeleton,
     useToast,
     Stack,
+    Container,
+    ListItem,
+    OrderedList,
+    Heading,
+    Box,
+    Flex,
+    Grid,
+    GridItem,
 } from '@chakra-ui/react'
 import { useDispatch } from 'react-redux'
 import { getTaskToken } from '../Redux/task/Get/action'
@@ -61,43 +69,35 @@ const TableComponents = (props) => {
 
 
     return (
-        <TableContainer  >
-            <Table variant='striped' colorScheme='gray.800'>
-                <Thead>
-                    <Tr>
-                        <Th>#</Th>
-                        <Th>Task</Th>
-                        <Th>Status</Th>
-                        <Th>Edit</Th>
-                        <Th>Delete</Th>
-                    </Tr>
-                </Thead>
+        <Container>
+            {props.loading ? <Stack>
+                <Skeleton height='20px' />
+                <Skeleton height='20px' />
+                <Skeleton height='20px' />
+            </Stack> :
+                props.data.map((item, index) => (
+                    <Grid
 
-                <Tbody>
-                    {props.loading ? <Stack>
-                        <Skeleton height='20px' />
-                        <Skeleton height='20px' />
-                        <Skeleton height='20px' />
-                        <Skeleton height='20px' />
-                        <Skeleton height='20px' />
+                        p='2%'
+                        borderBottom="1px solid black"
+                        templateColumns="repeat(5, 1fr)"
+                        gap={6}
+                        justifyContent={'center'}
+                        alignItems={'center'} >
+                        <GridItem>{index + 1}</GridItem>
+                        <GridItem rowSpan={1} colSpan={3}>{item.title}</GridItem>
+                        <GridItem>
+                            <Button bg={item.status ? "whatsapp.100" : "red.100"} onClick={() => handleEdit(item._id, item.status)}>{item.status ? "Completed" : "Incompleted"}</Button>
+                        </GridItem>
+                        <GridItem> <EditTask id={item._id} /></GridItem>
+                        <GridItem>
+                            <Button colorScheme='red' rightIcon={<DeleteIcon />} onClick={() => handleDelete(item._id)}>Delete</Button>
+                        </GridItem>
+                    </Grid>
+                ))
+            }
+        </Container >
 
-                    </Stack> : props.data.map((item, index) => (
-
-                        <Tr key={item._id}>
-                            <Td>{index + 1}</Td>
-                            <Td>{item.title}</Td>
-                            <Td><Button bg={item.status ? "whatsapp.100" : "red.100"} onClick={() => handleEdit(item._id, item.status)}>{item.status ? "Completed" : "Incompleted"}</Button></Td>
-                            <Td >
-                                <EditTask id={item._id} />
-                            </Td>
-                            <Td ><Button colorScheme='red' rightIcon={<DeleteIcon />} onClick={() => handleDelete(item._id)}>Delete</Button></Td>
-                        </Tr>
-
-                    ))}
-                </Tbody>
-
-            </Table>
-        </TableContainer>
     )
 }
 
