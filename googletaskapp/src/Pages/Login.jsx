@@ -64,7 +64,6 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         let payload = { username, password }
-        payload = JSON.stringify(payload);
         dispatch(getLoginToken(payload))
     }
 

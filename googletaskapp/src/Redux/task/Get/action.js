@@ -24,8 +24,8 @@ let userid = localStorage.getItem("userid")
 export const getTaskToken = () => (dispatch) => {
     dispatch(getTaskloading())
     axios({
-        method:"GET",
-        url:`${process.env.REACT_APP_API_URL}/user/${userid}/task`
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/user/${userid}/task`
     })
         .then((res) => {
             dispatch(getTaskSuccess(res.data))

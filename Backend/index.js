@@ -6,14 +6,10 @@ require("dotenv").config();
 //Routes
 const authRouter = require("./routes/auth.routes");
 const taskRouter = require("./routes/task.routes");
-
 const app = express();
 
-
 //middlewares
-app.use(cors({
-    origin: "https://googletaskbynitin.netlify.app"
-}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use("/auth", authRouter);
@@ -33,4 +29,5 @@ app.listen(process.env.PORT, async () => {
     }
     console.log(`Server running on localhost:${process.env.PORT}`)
 })
+
 
