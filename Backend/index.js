@@ -12,7 +12,7 @@ const app = express();
 
 //middlewares
 app.use(cors({
-    origin: "*"
+    origin: "https://googletaskbynitin.netlify.app"
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
