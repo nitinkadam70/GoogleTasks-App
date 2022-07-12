@@ -8,7 +8,10 @@ import {
     Input,
     Button,
     Stack,
-    useToast
+    useToast,
+    SkeletonCircle,
+    SkeletonText,
+    Spinner
 } from '@chakra-ui/react';
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -153,12 +156,14 @@ export default function TaskpageFinal() {
     }
     return (
         <Flex
+            bg={useColorModeValue('gray.800', 'gray.200')}
+
             textAlign={'center'}
             pt={10}
             justifyContent={'center'}
             direction={'column'}
             width={'full'}>
-            <Box width={{ base: 'full', sm: 'lg', lg: 'xl' }} margin={'auto'}>
+            <Box width={{ base: 'full', sm: 'lg', lg: 'xl' }} margin={'auto'} >
                 <form onSubmit={handleSubmit}>
                     <Stack spacing={4} direction={{ base: 'column', md: 'row' }} w={'full'}>
                         <Input
@@ -166,7 +171,7 @@ export default function TaskpageFinal() {
                             type={'text'}
                             placeholder={'Add your task here !'}
                             color={useColorModeValue('gray.800', 'gray.200')}
-                            bg={useColorModeValue('gray.100', 'gray.600')}
+                            bg={useColorModeValue('gray.200', 'gray.600')}
                             rounded={'full'}
                             border={0}
                             _focus={{
@@ -189,15 +194,25 @@ export default function TaskpageFinal() {
                 </form>
             </Box>
             <SimpleGrid
+
                 columns={{ base: 1, xl: 2 }}
                 spacing={'20'}
                 mt={16}
                 mx={'auto'}>
-                {task.map((cardInfo, index) => (
-                    <TestimonialCard key={index} {...cardInfo} index={index} />
-                ))}
+                {loading ?
+                    <Spinner
+                        thickness='4px'
+                        speed='0.65s'
+                        emptyColor='gray.200'
+                        color='blue.500'
+                        size={'xl'}
+                    />
+
+                    : task.map((cardInfo, index) => (
+                        <TestimonialCard key={index} {...cardInfo} index={index} />
+                    ))}
             </SimpleGrid>
-            <Box>
+            <Box >
                 <Icon viewBox="0 0 40 35" mt={14} boxSize={10} color={'purple.400'}>
                     <path
                         fill={'currentColor'}
