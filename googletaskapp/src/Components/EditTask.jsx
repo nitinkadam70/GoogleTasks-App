@@ -1,4 +1,4 @@
-import { Input, useToast } from "@chakra-ui/react"
+import { IconButton, Input, useToast } from "@chakra-ui/react"
 import React, { useState } from "react"
 import axios from "axios"
 
@@ -18,7 +18,7 @@ import {
 import { EditIcon } from "@chakra-ui/icons"
 import { getTaskToken } from "../Redux/task/Get/action"
 import { useDispatch } from "react-redux"
-export function EditTask({ id }) {
+export default function EditTask({ _id }) {
 
     const [text, setText] = useState("")
     const initialFocusRef = React.useRef()
@@ -26,9 +26,9 @@ export function EditTask({ id }) {
     const userid = localStorage.getItem("userid")
     const dispatch = useDispatch()
 
-    const handleSave = (id) => {
+    const handleSave = (_id) => {
         let payload = { title: text }
-        axios(`${process.env.REACT_APP_API_URL}/user/${userid}/task/${id}`, {
+        axios(`${process.env.REACT_APP_API_URL}/user/${userid}/task/${_id}`, {
             method: "PATCH",
             data: JSON.stringify(payload),
             headers: { "Content-Type": "application/json" }
@@ -52,7 +52,7 @@ export function EditTask({ id }) {
             closeOnBlur={false}
         >
             <PopoverTrigger>
-                <Button rightIcon={<EditIcon />}>Edit</Button>
+                <IconButton size={'sm'} background='none' icon={<EditIcon />}></IconButton>
             </PopoverTrigger>
             <PopoverContent color='white' bg='blue.800' borderColor='blue.800'>
                 <PopoverHeader pt={4} fontWeight='bold' border='0'>
@@ -72,7 +72,7 @@ export function EditTask({ id }) {
                 >
                     <Box fontSize='sm'></Box>
                     <ButtonGroup size='sm'>
-                        <Button colorScheme='green' onClick={() => handleSave(id)}>Save</Button>
+                        <Button colorScheme='green' onClick={() => handleSave(_id)}>Save</Button>
                     </ButtonGroup>
                 </PopoverFooter>
             </PopoverContent>

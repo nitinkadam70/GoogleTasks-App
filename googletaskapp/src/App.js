@@ -2,8 +2,8 @@ import { Route, Routes } from 'react-router-dom'
 import Login from './Pages/Login';
 import Homepage from './Pages/Homepage';
 import Signup from './Pages/Signup';
-import Tasks from './Pages/Tasks';
 import Profile from './Components/Profile';
+import TaskpageFinal from './Pages/TaskpageFinal';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Route path='/' element={<Homepage />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route path='/task' element={<Tasks />} />
+        <Route path='/task' element={<TaskpageFinal />} />
       </Routes>
 
     </>

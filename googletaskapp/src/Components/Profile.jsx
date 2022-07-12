@@ -24,7 +24,7 @@ const Profile = () => {
         return
     }
     return (
-        <VStack direction={'row'} p='1%' spacing={4} position={'absolute'}>
+        <VStack direction={'row'} p='1%' spacing={4} position={[ 'relative','relative','absolute']}>
             <Button onClick={() => {
                 localStorage.clear()
                 navigate("/")
