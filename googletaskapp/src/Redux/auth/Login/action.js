@@ -30,7 +30,7 @@ export const getLoginToken = (payload) => (dispatch) => {
             "Content-Type": "application/json"
         },
         method: "POST",
-        data: JSON.stringify(payload),
+        data: payload,
 
     }).then((res) => {
         if (res.data.message) {
@@ -38,6 +38,8 @@ export const getLoginToken = (payload) => (dispatch) => {
         }
         else if (res.data.token) {
             dispatch(getLoginSuccess(res.data))
+            localStorage.setItem("userid", res.data._id)
+            localStorage.setItem("username", res.data.name)
         }
     }).catch((error) => dispatch(getLoginError()));
 }

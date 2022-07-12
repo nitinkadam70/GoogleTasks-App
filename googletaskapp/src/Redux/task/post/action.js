@@ -20,9 +20,9 @@ const postTaskError = (payload) => ({
     payload
 })
 
-let userid = JSON.parse(localStorage.getItem("userid"))
 
 export const postTaskAction = (payload) => (dispatch) => {
+    let userid = localStorage.getItem("userid");
     dispatch(postTaskloading())
     axios({
         url: `${process.env.REACT_APP_API_URL}/user/${userid}/task`,

@@ -18,10 +18,9 @@ export const getTaskError = () => ({
     type: GET_TASK_ERROR
 })
 
-let userid = JSON.parse(localStorage.getItem("userid"))
-
 
 export const getTaskToken = () => (dispatch) => {
+    let userid = localStorage.getItem("userid");
     dispatch(getTaskloading())
     axios({
         method: "GET",

@@ -31,12 +31,10 @@ export default function Login() {
 
     const { res, loading, error } = useSelector((store) => store.login)
 
-    let userid = JSON.parse(localStorage.getItem("userid"));
+    let userid = localStorage.getItem("userid");
 
     useEffect(() => {
         if (res) {
-            localStorage.setItem("userid", JSON.stringify(res._id));
-            localStorage.setItem("username", res.name);
             navigate("/task")
             toast({
                 title: 'you have logged in successfully',

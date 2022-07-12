@@ -24,6 +24,7 @@ import { useEffect } from 'react';
 import { Progress } from '@chakra-ui/react'
 
 export default function Signup() {
+    const userid =localStorage.getItem("userid")
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -33,7 +34,7 @@ export default function Signup() {
 
     const toast = useToast()
 
-    let userid = JSON.parse(localStorage.getItem("userid"));
+
 
     useEffect(() => {
         if (token) {
@@ -67,7 +68,7 @@ export default function Signup() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const payload = JSON.stringify(userData);
-        dispatch(getSignupToken(payload))
+        dispatch(getSignupToken(payload, userid))
     }
 
     return (
