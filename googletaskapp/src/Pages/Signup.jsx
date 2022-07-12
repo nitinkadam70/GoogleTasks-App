@@ -33,7 +33,7 @@ export default function Signup() {
 
     const toast = useToast()
 
-    let userid = localStorage.getItem("userid");
+    let userid = JSON.parse(localStorage.getItem("userid"));
 
     useEffect(() => {
         if (token) {

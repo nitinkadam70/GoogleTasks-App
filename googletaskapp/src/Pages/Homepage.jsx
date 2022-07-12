@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 export default function Homepage() {
 
     const navigate = useNavigate();
-    let userid = localStorage.getItem("userid");
+    let userid = JSON.parse(localStorage.getItem("userid"));
 
     return (
         <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>

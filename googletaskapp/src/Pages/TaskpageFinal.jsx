@@ -36,7 +36,7 @@ const backgrounds = [
 function TestimonialCard(props) {
     const dispatch = useDispatch()
     const toast = useToast()
-    const userid = localStorage.getItem("userid")
+    const userid = JSON.parse(localStorage.getItem("userid"))
 
     const handleDelete = (id) => {
         axios.delete(`${process.env.REACT_APP_API_URL}/user/${userid}/task/${id}`)

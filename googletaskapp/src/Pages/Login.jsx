@@ -31,11 +31,11 @@ export default function Login() {
 
     const { res, loading, error } = useSelector((store) => store.login)
 
-    let userid = localStorage.getItem("userid");
+    let userid = JSON.parse(localStorage.getItem("userid"));
 
     useEffect(() => {
         if (res) {
-            localStorage.setItem("userid", res._id);
+            localStorage.setItem("userid", JSON.stringify(res._id));
             localStorage.setItem("username", res.name);
             navigate("/task")
             toast({
@@ -64,6 +64,7 @@ export default function Login() {
     const handleSubmit = (e) => {
         e.preventDefault();
         let payload = { username, password }
+        payload = JSON.stringify(payload);
         dispatch(getLoginToken(payload))
     }
 

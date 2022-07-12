@@ -20,7 +20,7 @@ const postTaskError = (payload) => ({
     payload
 })
 
-let userid = localStorage.getItem("userid")
+let userid = JSON.parse(localStorage.getItem("userid"))
 
 export const postTaskAction = (payload) => (dispatch) => {
     dispatch(postTaskloading())

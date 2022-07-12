@@ -18,7 +18,7 @@ export const getTaskError = () => ({
     type: GET_TASK_ERROR
 })
 
-let userid = localStorage.getItem("userid")
+let userid = JSON.parse(localStorage.getItem("userid"))
 
 
 export const getTaskToken = () => (dispatch) => {
