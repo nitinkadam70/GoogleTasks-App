@@ -19,7 +19,9 @@ app.get("/", (req, res) => {
     res.send("Homepage")
 })
 
-app.listen(process.env.PORT, async () => {
+const port = process.env.PORT || 8080
+
+app.listen(port, async () => {
     try {
         await connection;
         console.log("Connected to DB successfully");
@@ -27,7 +29,7 @@ app.listen(process.env.PORT, async () => {
     catch {
         console.log("Failed to connect DB")
     }
-    console.log(`Server running on localhost:${process.env.PORT}`)
+    console.log(`Server running on localhost:${port}`)
 })
 
 
